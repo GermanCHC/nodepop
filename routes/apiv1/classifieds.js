@@ -58,7 +58,7 @@ router.get('/tags', (req, res, next)=>{
 function fillFilter(req) {
   const name = req.query.name;
   const sell = req.query.sell;
-  const price = req.query.price;
+  const priceInitial = req.query.price;
   const tags = req.query.tags;
 
   // Create empty filter
@@ -69,7 +69,20 @@ function fillFilter(req) {
   if (sell) {
     filter.sell = sell;
   }
-  if (price) {
+  
+  if (priceInitial) {
+    var price = {eq: priceInitial};
+    if (priceInitial.indexOf("-")>=0) {
+      var res = priceInitial.split("-");
+      if (res[0] && res[1]) {
+        price={ '$gte': res[0], '$lte': res[1] }; 
+      }else if(res[0]){
+        price={ '$gte': res[0] }; 
+      }else if (res[1]) {
+        price={ '$lte': res[1] }; 
+      }
+    }
+    
     filter.price = price;
   }
   if (tags) {
