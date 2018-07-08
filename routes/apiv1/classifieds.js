@@ -64,7 +64,7 @@ function fillFilter(req) {
   // Create empty filter
   const filter = {};
   if (name) {
-    filter.name = name;
+    filter.name = new RegExp('^' + name, "i");;
   }
   if (sell) {
     filter.sell = sell;
