@@ -49,7 +49,7 @@ npm run dev
 
 To obtain a token make a POST to: /apiv1/users/login with email & password
 
-To get answers in your language(actualy English or Spanish) you have to sen also localeCODE with 'en' for english or 'es' for spanish. Default is going to be english in the case localCODE is not provided.
+To get answers in your language(actualy English or Spanish) you have to send also localeCODE with 'en' for english or 'es' for spanish. Default is going to be english in the case localCODE is not provided.
 
 Use that token inthe rest of request in:
   - header: 'x-access-token'
