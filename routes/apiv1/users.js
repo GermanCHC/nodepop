@@ -1,13 +1,65 @@
+'use strict';
+
 const express = require('express');
 const router = express.Router();
 
 const User = require('../../models/User');
+const jwt = require('jsonwebtoken');
 const crypto = require('crypto');
+const localConfig = require('../../localConfig');
+
+const jwtAuth = require('../../lib/jwtAuth');
+
+router.post('/login', async (req,res,next) =>{
+    try {
+        //Get Credentials
+        const email = req.body.email;
+        var passwordHashed = crypto.createHash('sha256').update(req.body.password).digest('base64');
+         
+        //Search in Data Base
+        const user = await User.findOne({email: email}).exec();
+        // If user found continue
+        if (!user) {
+            res.json({
+                success: true,
+                message: 'invalid credentials'
+            });
+            return;
+        }
+        // Check password, if is ok continue
+        if (passwordHashed !== user.password) {
+            res.json({
+                success: true,
+                message: 'invalid credentials'
+            });
+            return;
+        }
+
+        //Create JWT
+        jwt.sign({ user_id: user._id }, localConfig.jwt.secret, {
+            expiresIn: localConfig.jwt.expiresIn
+        }, (err,token)=>{
+            if (err) {
+                next(err);
+                return;
+            }
+            // Answer to client given JWT
+            res.json({
+                success: true,
+                token
+            });
+        });
+        
+    } catch (err) {
+        next(err);
+    }
+});
+
 /**
  * POST /
  * Create a User
  */
-router.post('/', async (req, res, next) => {
+router.post('/', jwtAuth() , async (req, res, next) => {
     try {
         // Create a user in memory
         const user = new User(req.body);

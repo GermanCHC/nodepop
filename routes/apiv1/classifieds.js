@@ -4,6 +4,10 @@ const express = require('express');
 const router = express.Router();
 
 const Classified = require('../../models/Classified');
+const jwtAuth = require('../../lib/jwtAuth');
+
+//All router need authentication
+router.use(jwtAuth());
 
 /**
  *  GET /

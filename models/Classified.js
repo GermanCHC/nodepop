@@ -27,6 +27,6 @@ classifiedSchema.statics.list = function (filter, skip, limit, fields, sort) {
 };
 
 // Create Model
-const Classified = mongoose.model('Classifieds', classifiedSchema);
+const Classified = mongoose.model('Classified', classifiedSchema);
 
 module.exports = Classified;

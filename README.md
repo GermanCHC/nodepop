@@ -45,6 +45,15 @@ npm run dev
 
 ## API Documentation
 
+### Authentication
+
+To obtain a token make a POST to: /apiv1/users/login with email & password
+
+Use that token inthe rest of request in:
+  - header: 'x-access-token'
+  - body: token
+  - query string: token
+
 ### Classifieds
 
 To get classifieds you can use:
