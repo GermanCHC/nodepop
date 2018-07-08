@@ -20,20 +20,20 @@ app.use(logger('dev'));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, 'public')));
+
 
 /** 
  * My API Routes
  */
+app.use(express.static('public'));
 app.use('/apiv1/classifieds', require('./routes/apiv1/classifieds'));
 app.use('/apiv1/users', require('./routes/apiv1/users'));
-
+ 
 /**
  * My Wep App Routes
  */
 app.use('/',      require('./routes/index'));
-app.use('/users', require('./routes/users'));
-
+ 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   next(createError(404));

@@ -6,6 +6,8 @@ const router = express.Router();
 const Classified = require('../../models/Classified');
 const jwtAuth = require('../../lib/jwtAuth');
 
+const localConfig = require('../../localConfig');
+
 //All router need authentication
 router.use(jwtAuth());
 
@@ -15,7 +17,6 @@ router.use(jwtAuth());
  */
 router.get('/', async (req, res, next) => {
   try {
-
     const filter = fillFilter(req);
     const skip = parseInt(req.query.skip);
     const limit = parseInt(req.query.limit);
@@ -30,6 +31,24 @@ router.get('/', async (req, res, next) => {
   } catch (err) {
     next(err);
   }
+});
+
+/**
+ *  GET /
+ * Obtains a list of tags available
+ */
+router.get('/tags', (req, res, next)=>{
+  try {
+    const tags = localConfig.tagsList.tags;
+     
+    res.json({
+      success: true,
+      result: tags
+    });
+  } catch (err) {
+    next(err);
+  }
+    
 });
 
 /**

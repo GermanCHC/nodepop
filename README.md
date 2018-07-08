@@ -54,6 +54,8 @@ Use that token inthe rest of request in:
   - body: token
   - query string: token
 
+The first Users are load automatically with the file usersDemoData.json that is in lib folder.
+
 ### Classifieds
 
 To get classifieds you can use:
@@ -74,7 +76,17 @@ To choose only some fields:
 ```
 When you fill fields you always get objects without id. 
 
+To get the list of tags you have to call the url with a security token:
+```shell
+http://localhost:3000/apiv1/classifieds/tags?token=XXXXXXXXXXX
+```
 
+To get the photos from classifieds you have to call:
+```shell
+ej:
+
+http://localhost:3000/public/images/classifieds/iphone.jpg
+```
 ### Users
 
 You can only add users. You have to post user with x-www-form-urlencoded passing:

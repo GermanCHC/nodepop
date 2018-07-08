@@ -10,6 +10,7 @@ const classifiedSchema = mongoose.Schema({
     photo: String,
     tags: [String]
 });
+classifiedSchema.index({name:'text'});
 
 //Static Method
 classifiedSchema.statics.list = function (filter, skip, limit, fields, sort) {
@@ -22,6 +23,7 @@ classifiedSchema.statics.list = function (filter, skip, limit, fields, sort) {
     query.skip(skip);
     query.limit(limit);
 
+    console.log(query);
     //Execute query and return promise
     return query.exec();
 };

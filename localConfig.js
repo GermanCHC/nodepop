@@ -4,3 +4,8 @@ module.exports = {
         expiresIn: '2d'
     }
 };
+
+module.exports.tagsList = {
+tags:["work",
+    "lifestyle", "motor", "mobile"]
+}
