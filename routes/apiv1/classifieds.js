@@ -69,9 +69,9 @@ function fillFilter(req) {
   if (sell) {
     filter.sell = sell;
   }
-  
+
   if (priceInitial) {
-    var price = {eq: priceInitial};
+    var price = priceInitial;
     if (priceInitial.indexOf("-")>=0) {
       var res = priceInitial.split("-");
       if (res[0] && res[1]) {
