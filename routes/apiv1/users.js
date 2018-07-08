@@ -1,6 +1,8 @@
 'use strict';
 
 const express = require('express');
+var i18n = require('i18n');
+const DEFAULT_LANG = 'en';
 const router = express.Router();
 
 const User = require('../../models/User');
@@ -14,6 +16,11 @@ router.post('/login', async (req,res,next) =>{
     try {
         //Get Credentials
         const email = req.body.email;
+        var locale= req.body.localeCODE;
+        if (!locale) {
+            locale=DEFAULT_LANG;
+        }
+        i18n.setLocale(locale);
         var passwordHashed = crypto.createHash('sha256').update(req.body.password).digest('base64');
          
         //Search in Data Base
@@ -22,7 +29,7 @@ router.post('/login', async (req,res,next) =>{
         if (!user) {
             res.json({
                 success: true,
-                message: 'invalid credentials'
+                message: i18n.__('invalid_credent')
             });
             return;
         }
@@ -30,7 +37,7 @@ router.post('/login', async (req,res,next) =>{
         if (passwordHashed !== user.password) {
             res.json({
                 success: true,
-                message: 'invalid credentials'
+                message: i18n.__('invalid_credent')
             });
             return;
         }
